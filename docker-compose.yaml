@@ -7,11 +7,16 @@ services:
     environment:
       - is_half=False
       - is_share=False
+      - LC_ALL=zh_CN.UTF-8
+      - LANG=zh_CN.UTF-8
     volumes:
-      - ./output:/workspace/output
-      - ./logs:/workspace/logs
-      - ./SoVITS_weights:/workspace/SoVITS_weights
-      - ./reference:/workspace/reference
+      - /home/docker/mnt/TeamSpace/TTD-Space/output:/workspace/output
+      - /home/docker/mnt/TeamSpace/TTD-Space/logs:/workspace/logs
+      - /home/docker/mnt/TeamSpace/TTD-Space/SoVITS_weights:/workspace/SoVITS_weights
+      - /home/docker/mnt/TeamSpace/TTD-Space/GPT_weights:/workspace/GPT_weights
+      - /home/docker/mnt/TeamSpace/TTD-Space/reference:/workspace/reference
+      - /home/docker/mnt/TeamSpace:/workspace/TeamSpace
+      - /var/lib/docker/containers:/workspace/containers
     working_dir: /workspace
     ports:
       - "9880:9880"
@@ -19,7 +24,7 @@ services:
       - "9872:9872"
       - "9873:9873"
       - "9874:9874"
-    shm_size: 16G
+    shm_size: 32G
     deploy:
       resources:
         reservations:
