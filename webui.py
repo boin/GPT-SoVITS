@@ -94,10 +94,9 @@ pretrained_sovits_name="GPT_SoVITS/pretrained_models/s2G488k.pth"
 pretrained_gpt_name="GPT_SoVITS/pretrained_models/s1bert25hz-2kh-longer-epoch=68e-step=50232.ckpt"
 
 def get_GPT_weight_root():
-    #return '/'
-    return '/home/docker/mnt/TeamSpace/TTD-Space'
+    return '/workspace/TeamSpace/TTD-Space/GPT_weights'
 def get_SoVITS_weight_root():
-    return '/home/docker/mnt/TeamSpace/TTD-Space'
+    return '/workspace/TeamSpace/TTD-Space/SoVITS_weights'
 def get_weights_names():
     SoVITS_names = [pretrained_sovits_name]
     for name in os.listdir(SoVITS_weight_root):
@@ -718,7 +717,7 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                     with gr.Row():
                         asr_inp_dir = gr.Textbox(
                             label=i18n("输入文件夹路径"),
-                            value="D:\\GPT-SoVITS\\raw\\xxx",
+                            value="TeamSpace/TTD-Space",
                             interactive=True,
                         )
                         asr_opt_dir = gr.Textbox(
@@ -762,7 +761,7 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                 if_label = gr.Checkbox(label=i18n("是否开启打标WebUI"),show_label=True)
                 path_list = gr.Textbox(
                     label=i18n(".list标注文件的路径"),
-                    value="D:\\RVC1006\\GPT-SoVITS\\raw\\xxx.list",
+                    value="TeamSpace/TTD-Space",
                     interactive=True,
                 )
                 label_info = gr.Textbox(label=i18n("打标工具进程输出信息"))
@@ -785,10 +784,10 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
             with gr.TabItem(i18n("1A-训练集格式化工具")):
                 gr.Markdown(value=i18n("输出logs/实验名目录下应有23456开头的文件和文件夹"))
                 with gr.Row():
-                    inp_text = gr.Textbox(label=i18n("*文本标注文件"),value=r"D:\RVC1006\GPT-SoVITS\raw\xxx.list",interactive=True)
+                    inp_text = gr.Textbox(label=i18n("*文本标注文件"),value=r"TeamSpace/TTD-Space",interactive=True)
                     inp_wav_dir = gr.Textbox(
                         label=i18n("*训练集音频文件目录"),
-                        # value=r"D:\RVC1006\GPT-SoVITS\raw\xxx",
+                        value=r"TeamSpace/TTD-Space",
                         interactive=True,
                         placeholder=i18n("填切割后音频所在目录！读取的音频文件完整路径=该目录-拼接-list文件里波形对应的文件名（不是全路径）。如果留空则使用.list文件里的绝对全路径。")
                     )
@@ -860,9 +859,9 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                 gr.Markdown(value=i18n("选择训练完存放在SoVITS_weights和GPT_weights下的模型。默认的一个是底模，体验5秒Zero Shot TTS用。"))
                 with gr.Row():
                     #GPT_dropdown = gr.Dropdown(label=i18n("*GPT模型列表"), choices=sorted(GPT_names,key=custom_sort_key),value=pretrained_gpt_name,interactive=True)
-                    GPT_dropdown = gr.FileExplorer(glob="**/*", root=get_GPT_weight_root(), label=i18n("*GPT模型列表"),interactive=True, file_count="single")
+                    GPT_dropdown = gr.FileExplorer(glob="**/*.ckpt", ignore_glob="*._*", root=get_GPT_weight_root(), label=i18n("*GPT模型列表"),interactive=True, file_count="single")
                     #SoVITS_dropdown = gr.Dropdown(label=i18n("*SoVITS模型列表"), choices=sorted(SoVITS_names,key=custom_sort_key),value=pretrained_sovits_name,interactive=True)
-                    SoVITS_dropdown = gr.FileExplorer(glob="**/*", root=get_SoVITS_weight_root(), label=i18n("*SoVITS模型列表"),interactive=True, file_count="single")
+                    SoVITS_dropdown = gr.FileExplorer(glob="**/*.pth", ignore_glob="*._*", root=get_SoVITS_weight_root(), label=i18n("*SoVITS模型列表"),interactive=True, file_count="single")
                     gpu_number_1C=gr.Textbox(label=i18n("GPU卡号,只能填1个整数"), value=gpus, interactive=True)
                     #refresh_button = gr.Button(i18n("刷新模型路径"), variant="primary")
                     #refresh_button.click(fn=change_choices,inputs=[],outputs=[SoVITS_dropdown,GPT_dropdown])
