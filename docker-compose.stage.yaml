@@ -15,7 +15,7 @@ services:
       - /home/docker/mnt/TeamSpace/TTD-Space/GPT_weights:/workspace/GPT_weights
       - /home/docker/mnt/TeamSpace/TTD-Space/reference:/workspace/reference
       - /home/docker/mnt/TeamSpace:/workspace/TeamSpace
-      - /var/lib/docker/containers:/workspace/containers
+      - /home/docker/GPT-SoVITS/webui.py:/workspace/webui.py
     working_dir: /workspace
     ports:
       - "9580:9880"
