@@ -92,6 +92,12 @@ gpus = "-".join([i[0] for i in gpu_infos])
 
 pretrained_sovits_name="GPT_SoVITS/pretrained_models/s2G488k.pth"
 pretrained_gpt_name="GPT_SoVITS/pretrained_models/s1bert25hz-2kh-longer-epoch=68e-step=50232.ckpt"
+
+def get_GPT_weight_root():
+    #return '/'
+    return '/home/docker/mnt/TeamSpace/TTD-Space'
+def get_SoVITS_weight_root():
+    return '/home/docker/mnt/TeamSpace/TTD-Space'
 def get_weights_names():
     SoVITS_names = [pretrained_sovits_name]
     for name in os.listdir(SoVITS_weight_root):
@@ -853,11 +859,13 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
             with gr.TabItem(i18n("1C-推理")):
                 gr.Markdown(value=i18n("选择训练完存放在SoVITS_weights和GPT_weights下的模型。默认的一个是底模，体验5秒Zero Shot TTS用。"))
                 with gr.Row():
-                    GPT_dropdown = gr.Dropdown(label=i18n("*GPT模型列表"), choices=sorted(GPT_names,key=custom_sort_key),value=pretrained_gpt_name,interactive=True)
-                    SoVITS_dropdown = gr.Dropdown(label=i18n("*SoVITS模型列表"), choices=sorted(SoVITS_names,key=custom_sort_key),value=pretrained_sovits_name,interactive=True)
+                    #GPT_dropdown = gr.Dropdown(label=i18n("*GPT模型列表"), choices=sorted(GPT_names,key=custom_sort_key),value=pretrained_gpt_name,interactive=True)
+                    GPT_dropdown = gr.FileExplorer(glob="**/*", root=get_GPT_weight_root(), label=i18n("*GPT模型列表"),interactive=True, file_count="single")
+                    #SoVITS_dropdown = gr.Dropdown(label=i18n("*SoVITS模型列表"), choices=sorted(SoVITS_names,key=custom_sort_key),value=pretrained_sovits_name,interactive=True)
+                    SoVITS_dropdown = gr.FileExplorer(glob="**/*", root=get_SoVITS_weight_root(), label=i18n("*SoVITS模型列表"),interactive=True, file_count="single")
                     gpu_number_1C=gr.Textbox(label=i18n("GPU卡号,只能填1个整数"), value=gpus, interactive=True)
-                    refresh_button = gr.Button(i18n("刷新模型路径"), variant="primary")
-                    refresh_button.click(fn=change_choices,inputs=[],outputs=[SoVITS_dropdown,GPT_dropdown])
+                    #refresh_button = gr.Button(i18n("刷新模型路径"), variant="primary")
+                    #refresh_button.click(fn=change_choices,inputs=[],outputs=[SoVITS_dropdown,GPT_dropdown])
                 with gr.Row():
                     if_tts = gr.Checkbox(label=i18n("是否开启TTS推理WebUI"), show_label=True)
                     tts_info = gr.Textbox(label=i18n("TTS推理WebUI进程输出信息"))

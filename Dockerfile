@@ -14,8 +14,7 @@ RUN apt-get update && \
     git lfs install && \
     rm -rf /var/lib/apt/lists/*
 
-RUN locale-gen zh_CN.UTF-8 \
-    && localectl set-locale zh_CN.UTF-8
+RUN locale-gen zh_CN.UTF-8 
 
 # Copy only requirements.txt initially to leverage Docker cache
 WORKDIR /workspace
