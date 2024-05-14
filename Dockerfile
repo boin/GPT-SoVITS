@@ -10,9 +10,12 @@ LABEL description="Docker image for GPT-SoVITS"
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Etc/UTC
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends tzdata ffmpeg libsox-dev parallel aria2 git git-lfs && \
+    apt-get install -y --no-install-recommends tzdata ffmpeg libsox-dev parallel aria2 git git-lfs locales && \
     git lfs install && \
     rm -rf /var/lib/apt/lists/*
+
+RUN locale-gen zh_CN.UTF-8 \
+    && localectl set-locale zh_CN.UTF-8
 
 # Copy only requirements.txt initially to leverage Docker cache
 WORKDIR /workspace
