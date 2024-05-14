@@ -11,4 +11,6 @@ def get_docker_logs():
     base_path = "/workspace/containers"
     container_id = socket.gethostname()
     log_path = find_file_with_prefix(base_path, container_id) 
+    #if not log_path:
+    #    log_path = '/home/coder/pay.sql'
     return log_path
