@@ -16,19 +16,7 @@ services:
       - /home/docker/mnt/TeamSpace:/workspace/TeamSpace
       - /var/lib/docker/containers:/workspace/containers
     working_dir: /workspace
-    ports:
-      - "9880:9880"
-      - "9871:9871"
-      - "9872:9872"
-      - "9873:9873"
-      - "9874:9874"
     shm_size: 32G
-    deploy:
-      resources:
-        reservations:
-          devices:
-          - driver: nvidia
-            capabilities: [gpu]
     stdin_open: true
     tty: true
     restart: unless-stopped
@@ -46,6 +34,7 @@ services:
           devices:
           - driver: nvidia
             device_ids: ["2"]
+            capabilities: [gpu]
   sovits-training-2:
     extends: base
     ports:
@@ -60,6 +49,7 @@ services:
           devices:
           - driver: nvidia
             device_ids: ["1"]
+            capabilities: [gpu]
   sovits-inference-1:
     extends: base
     ports:
@@ -73,7 +63,8 @@ services:
         reservations:
           devices:
           - driver: nvidia
-            device_ids: ["0"]   
+            device_ids: ["0"]
+            capabilities: [gpu]
   sovits-inference-2:
     extends: base
     ports:
@@ -87,4 +78,5 @@ services:
         reservations:
           devices:
           - driver: nvidia
-            device_ids: ["0"]   
+            device_ids: ["0"]
+            capabilities: [gpu]
