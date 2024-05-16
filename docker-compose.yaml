@@ -1,10 +1,7 @@
-version: '3.8'
-
 services:
-  gpt-sovits:
+  base:
     build: .
     image: gpt-sovits:latest   # please change the image name and tag base your environment. If the tag contains the word 'elite', such as "latest-elite", it indicates that the image does not include the necessary models such as GPT-SoVITS, UVR5, Damo ASR, etc. You will need to download them yourself and map them into the container.
-    container_name: gpt-sovits-container
     environment:
       - is_half=False
       - is_share=False
@@ -31,8 +28,63 @@ services:
         reservations:
           devices:
           - driver: nvidia
-            count: "all"
             capabilities: [gpu]
     stdin_open: true
     tty: true
     restart: unless-stopped
+  sovits-training-1:
+    extends: base
+    ports:
+      - "9880:9880"
+      - "9871:9871"
+      - "9872:9872"
+      - "9873:9873"
+      - "9874:9874"
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            device_ids: ["2"]
+  sovits-training-2:
+    extends: base
+    ports:
+      - "9980:9880"
+      - "9971:9871"
+      - "9972:9872"
+      - "9973:9873"
+      - "9974:9874"
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            device_ids: ["1"]
+  sovits-inference-1:
+    extends: base
+    ports:
+      - "9180:9880"
+      - "9171:9871"
+      - "9172:9872"
+      - "9173:9873"
+      - "9174:9874"
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            device_ids: ["0"]   
+  sovits-inference-2:
+    extends: base
+    ports:
+      - "9280:9880"
+      - "9271:9871"
+      - "9272:9872"
+      - "9273:9873"
+      - "9274:9874"
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            device_ids: ["0"]   
