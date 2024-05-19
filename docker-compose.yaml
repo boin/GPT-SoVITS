@@ -20,7 +20,9 @@ services:
     stdin_open: true
     tty: true
     restart: unless-stopped
-  sovits-training-1:
+  sovits-training-3070:
+    profiles:
+      - production
     extends: base
     ports:
       - "9880:9880"
@@ -33,9 +35,11 @@ services:
         reservations:
           devices:
           - driver: nvidia
-            device_ids: ["2"]
+            device_ids: ["1"] #9874用3070，根据nvidia-smi做好映射
             capabilities: [gpu]
-  sovits-training-2:
+  sovits-training-3080:
+    profiles:
+      - production
     extends: base
     ports:
       - "9980:9880"
@@ -48,9 +52,11 @@ services:
         reservations:
           devices:
           - driver: nvidia
-            device_ids: ["1"]
+            device_ids: ["0"]
             capabilities: [gpu]
-  sovits-inference-1:
+  sovits-inference-p5000:
+    profiles:
+      - next
     extends: base
     ports:
       - "9180:9880"
@@ -65,7 +71,9 @@ services:
           - driver: nvidia
             device_ids: ["0"]
             capabilities: [gpu]
-  sovits-inference-2:
+  sovits-inference-cpu:
+    profiles:
+      - production
     extends: base
     ports:
       - "9280:9880"
@@ -73,10 +81,10 @@ services:
       - "9272:9872"
       - "9273:9873"
       - "9274:9874"
-    deploy:
-      resources:
-        reservations:
-          devices:
-          - driver: nvidia
-            device_ids: ["0"]
-            capabilities: [gpu]
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #       - driver: nvidia
+    #         device_ids: ["0"]
+    #         capabilities: [gpu]

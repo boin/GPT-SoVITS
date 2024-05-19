@@ -36,13 +36,9 @@ RUN if [ "$IMAGE_TYPE" != "elite" ]; then \
         python -m nltk.downloader averaged_perceptron_tagger cmudict; \
     fi
 
-
-# Copy the rest of the application
-COPY . /workspace
-
 # Copy the rest of the application
 COPY . /workspace
 
 EXPOSE 9871 9872 9873 9874 9880
 
-CMD ["python", "webui.py"]
+CMD ["/workspace/go-webui.sh"]
