@@ -42,4 +42,4 @@ COPY . /workspace
 
 EXPOSE 9871 9872 9873 9874 9880
 
-CMD ["/workspace/go-webui.sh"]
+CMD ["bash /workspace/go-webui.sh"]
