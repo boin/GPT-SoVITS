@@ -36,6 +36,7 @@ RUN if [ "$IMAGE_TYPE" != "elite" ]; then \
         python -m nltk.downloader averaged_perceptron_tagger cmudict; \
     fi
 
+
 # Copy the rest of the application
 COPY . /workspace
 
