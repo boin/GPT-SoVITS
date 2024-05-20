@@ -624,6 +624,5 @@ app.queue().launch(
     server_name="0.0.0.0",
     inbrowser=True,
     share=is_share,
-    server_port=infer_ttswebui,
-    quiet=True,
+    server_port=infer_ttswebui
 )

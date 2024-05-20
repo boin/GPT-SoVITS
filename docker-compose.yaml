@@ -14,13 +14,13 @@ services:
       - /home/docker/mnt/TeamSpace/TTD-Space/GPT_weights:/workspace/GPT_weights
       - /home/docker/mnt/TeamSpace/TTD-Space/reference:/workspace/reference
       - /home/docker/mnt/TeamSpace:/workspace/TeamSpace
-      - /var/lib/docker/containers:/workspace/containers
     working_dir: /workspace
     shm_size: 32G
     stdin_open: true
     tty: true
     restart: unless-stopped
   sovits-training-3070:
+    container_name: '3070'
     profiles:
       - production
     extends: base
@@ -38,6 +38,7 @@ services:
             device_ids: ["1"] #9874用3070，根据nvidia-smi做好映射
             capabilities: [gpu]
   sovits-training-3080:
+    container_name: '3080'
     profiles:
       - production
     extends: base
@@ -55,6 +56,7 @@ services:
             device_ids: ["0"]
             capabilities: [gpu]
   sovits-inference-p5000:
+    container_name: 'p5000'  
     profiles:
       - next
     extends: base
@@ -72,6 +74,7 @@ services:
             device_ids: ["0"]
             capabilities: [gpu]
   sovits-inference-cpu:
+    container_name: 'cpu'
     profiles:
       - production
     extends: base

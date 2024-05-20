@@ -492,7 +492,6 @@ if __name__ == "__main__":
     demo.launch(
         server_name="0.0.0.0",
         inbrowser=True,
-        quiet=True,
         share=eval(args.is_share),
         server_port=int(args.webui_port_subfix)
     )
