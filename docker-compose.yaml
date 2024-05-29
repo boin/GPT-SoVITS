@@ -8,12 +8,12 @@ services:
       - LC_ALL=zh_CN.UTF-8
       - LANG=zh_CN.UTF-8
     volumes:
-      - /home/docker/mnt/TeamSpace/TTD-Space/output:/workspace/output
-      - /home/docker/mnt/TeamSpace/TTD-Space/logs:/workspace/logs
-      - /home/docker/mnt/TeamSpace/TTD-Space/SoVITS_weights:/workspace/SoVITS_weights
-      - /home/docker/mnt/TeamSpace/TTD-Space/GPT_weights:/workspace/GPT_weights
-      - /home/docker/mnt/TeamSpace/TTD-Space/reference:/workspace/reference
-      - /home/docker/mnt/TeamSpace:/workspace/TeamSpace
+      - teamspace/TTD-Space/output:/workspace/output
+      - teamspace/TTD-Space/logs:/workspace/logs
+      - teamspace/TTD-Space/SoVITS_weights:/workspace/SoVITS_weights
+      - teamspace/TTD-Space/GPT_weights:/workspace/GPT_weights
+      - teamspace/TTD-Space/reference:/workspace/reference
+      - teamspace:/workspace/TeamSpace
     working_dir: /workspace
     shm_size: 32G
     stdin_open: true
@@ -35,7 +35,7 @@ services:
         reservations:
           devices:
           - driver: nvidia
-            device_ids: ["1"] #9874用3070，根据nvidia-smi做好映射
+            device_ids: ["2"] #9874用3070，根据nvidia-smi做好映射
             capabilities: [gpu]
   sovits-training-3080:
     container_name: '3080'
@@ -53,12 +53,12 @@ services:
         reservations:
           devices:
           - driver: nvidia
-            device_ids: ["0"]
+            device_ids: ["1"]
             capabilities: [gpu]
   sovits-inference-p5000:
     container_name: 'p5000'  
     profiles:
-      - next
+      - production
     extends: base
     ports:
       - "9180:9880"
@@ -91,3 +91,10 @@ services:
     #       - driver: nvidia
     #         device_ids: ["0"]
     #         capabilities: [gpu]
+
+volumes:
+  teamspace:
+    driver_opts:
+      type: "nfs"
+      o: "addr=192.168.100.12,nolock,soft,nfsvers=4"
+      device: ":/mnt/md0"
