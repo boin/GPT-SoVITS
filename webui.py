@@ -833,7 +833,7 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                     batch_size = gr.Slider(minimum=1,maximum=40,step=1,label=i18n("每张显卡的batch_size"),value=default_batch_size,interactive=True)
                     total_epoch = gr.Slider(minimum=1,maximum=1000,step=1,label=i18n("总训练轮数total_epoch，不建议太高"),value=8,interactive=True)
                     text_low_lr_rate = gr.Slider(minimum=0.2,maximum=0.6,step=0.05,label=i18n("文本模块学习率权重"),value=0.4,interactive=True)
-                    save_every_epoch = gr.Slider(minimum=1,maximum=25,step=1,label=i18n("保存频率save_every_epoch"),value=4,interactive=True)
+                    save_every_epoch = gr.Slider(minimum=1,maximum=1000,step=1,label=i18n("保存频率save_every_epoch"),value=4,interactive=True)
                     if_save_latest = gr.Checkbox(label=i18n("是否仅保存最新的ckpt文件以节省硬盘空间"), value=True, interactive=True, show_label=True)
                     if_save_every_weights = gr.Checkbox(label=i18n("是否在每次保存时间点将最终小模型保存至weights文件夹"), value=True, interactive=True, show_label=True)
                     gpu_numbers1Ba = gr.Textbox(label=i18n("GPU卡号以-分割，每个卡号一个进程"), value="%s" % (gpus), interactive=True)
@@ -848,7 +848,7 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                     if_dpo = gr.Checkbox(label=i18n("是否开启dpo训练选项(实验性)"), value=False, interactive=True, show_label=True)
                     if_save_latest1Bb = gr.Checkbox(label=i18n("是否仅保存最新的ckpt文件以节省硬盘空间"), value=True, interactive=True, show_label=True)
                     if_save_every_weights1Bb = gr.Checkbox(label=i18n("是否在每次保存时间点将最终小模型保存至weights文件夹"), value=True, interactive=True, show_label=True)
-                    save_every_epoch1Bb = gr.Slider(minimum=1,maximum=50,step=1,label=i18n("保存频率save_every_epoch"),value=5,interactive=True)
+                    save_every_epoch1Bb = gr.Slider(minimum=1,maximum=1000,step=1,label=i18n("保存频率save_every_epoch"),value=5,interactive=True)
                     gpu_numbers1Bb = gr.Textbox(label=i18n("GPU卡号以-分割，每个卡号一个进程"), value="%s" % (gpus), interactive=True)
                 with gr.Row():
                     button1Bb_open = gr.Button(i18n("开启GPT训练"), variant="primary",visible=True)
