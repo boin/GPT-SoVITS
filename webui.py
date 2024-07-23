@@ -87,7 +87,7 @@ if if_gpu_ok and len(gpu_infos) > 0:
 else:
     gpu_info = ("%s\t%s" % ("0", "CPU"))
     gpu_infos.append("%s\t%s" % ("0", "CPU"))
-    default_batch_size = psutil.virtual_memory().total/ 1024 / 1024 / 1024 / 2
+    default_batch_size = int(psutil.virtual_memory().total/ 1024 / 1024 / 1024 / 2)
 gpus = "-".join([i[0] for i in gpu_infos])
 
 pretrained_sovits_name="GPT_SoVITS/pretrained_models/s2G488k.pth"
@@ -206,6 +206,7 @@ def open_asr(asr_inp_dir, asr_opt_dir, asr_model, asr_model_size, asr_lang):
     global p_asr
     if(p_asr==None):
         asr_inp_dir=my_utils.clean_path(asr_inp_dir)
+        asr_opt_dir=my_utils.clean_path(asr_opt_dir)
         cmd = f'"{python_exec}" tools/asr/{asr_dict[asr_model]["path"]}'
         cmd += f' -i "{asr_inp_dir}"'
         cmd += f' -o "{asr_opt_dir}"'
