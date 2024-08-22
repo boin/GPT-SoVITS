@@ -13,6 +13,7 @@ services:
       - /home/docker/mnt/TeamSpace/TTD-Space/GPT_Sovits_v2/SoVITS_weights:/workspace/SoVITS_weights_v2
       - /home/docker/mnt/TeamSpace/TTD-Space/GPT_Sovits_v2/GPT_weights:/workspace/GPT_weights_v2
       - /home/docker/mnt/TeamSpace/TTD-Space/GPT_Sovits_v2/reference:/workspace/reference
+      - /home/docker/mnt/TTD-Data/GPT_SoVITS/pretrained_models:/workspace/GPT_SoVITS/pretrained_models
       - /home/docker/mnt/TeamSpace:/workspace/TeamSpace
     working_dir: /workspace
     shm_size: 32G
