@@ -114,11 +114,6 @@ def fix_gpu_numbers(inputs):
     except:
         return inputs
 
-def get_GPT_weight_root():
-    return '/workspace/TeamSpace/TTD-Space/GPT_weights' + f'_{version}' if version == 'v2' else ''
-def get_SoVITS_weight_root():
-    return '/workspace/TeamSpace/TTD-Space/SoVITS_weights' + f'_{version}' if version == 'v2' else ''
-
 pretrained_sovits_name=["GPT_SoVITS/pretrained_models/gsv-v2final-pretrained/s2G2333k.pth", "GPT_SoVITS/pretrained_models/s2G488k.pth"]
 pretrained_gpt_name=["GPT_SoVITS/pretrained_models/gsv-v2final-pretrained/s1bert25hz-5kh-longer-epoch=12-step=369668.ckpt", "GPT_SoVITS/pretrained_models/s1bert25hz-2kh-longer-epoch=68e-step=50232.ckpt"]
 
@@ -1024,9 +1019,9 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                 gr.Markdown(value=i18n("选择训练完存放在SoVITS_weights和GPT_weights下的模型。默认的一个是底模，体验5秒Zero Shot TTS用。"))
                 with gr.Row():
                     #GPT_dropdown = gr.Dropdown(label=i18n("*GPT模型列表"), choices=sorted(GPT_names,key=custom_sort_key),value=pretrained_gpt_name,interactive=True)
-                    GPT_dropdown = gr.FileExplorer(glob="**/*.ckpt", ignore_glob="*._*", root=get_GPT_weight_root(), label=i18n("*GPT模型列表"),interactive=True, file_count="single")
+                    GPT_dropdown = gr.FileExplorer(glob="**/*.ckpt", ignore_glob="*._*", root=GPT_weight_root[-int(version[-1])+2], label=i18n("*GPT模型列表"),interactive=True, file_count="single")
                     #SoVITS_dropdown = gr.Dropdown(label=i18n("*SoVITS模型列表"), choices=sorted(SoVITS_names,key=custom_sort_key),value=pretrained_sovits_name,interactive=True)
-                    SoVITS_dropdown = gr.FileExplorer(glob="**/*.pth", ignore_glob="*._*", root=get_SoVITS_weight_root(), label=i18n("*SoVITS模型列表"),interactive=True, file_count="single")
+                    SoVITS_dropdown = gr.FileExplorer(glob="**/*.pth", ignore_glob="*._*", root=SoVITS_weight_root[-int(version[-1])+2], label=i18n("*SoVITS模型列表"),interactive=True, file_count="single")
                     gpu_number_1C=gr.Textbox(label=i18n("GPU卡号,只能填1个整数"), value=gpus, interactive=True)
                     #refresh_button = gr.Button(i18n("刷新模型路径"), variant="primary")
                     #refresh_button.click(fn=change_choices,inputs=[],outputs=[SoVITS_dropdown,GPT_dropdown])

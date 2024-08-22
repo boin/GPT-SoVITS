@@ -1,18 +1,18 @@
 services:
   base:
     build: .
-    image: gpt-sovits:latest   # please change the image name and tag base your environment. If the tag contains the word 'elite', such as "latest-elite", it indicates that the image does not include the necessary models such as GPT-SoVITS, UVR5, Damo ASR, etc. You will need to download them yourself and map them into the container.
+    image: gpt-sovits:v2   # please change the image name and tag base your environment. If the tag contains the word 'elite', such as "latest-elite", it indicates that the image does not include the necessary models such as GPT-SoVITS, UVR5, Damo ASR, etc. You will need to download them yourself and map them into the container.
     environment:
       - is_half=False
       - is_share=False
       - LC_ALL=zh_CN.UTF-8
       - LANG=zh_CN.UTF-8
     volumes:
-      - /home/docker/mnt/TeamSpace/TTD-Space/output:/workspace/output
-      - /home/docker/mnt/TeamSpace/TTD-Space/logs:/workspace/logs
-      - /home/docker/mnt/TeamSpace/TTD-Space/SoVITS_weights:/workspace/SoVITS_weights
-      - /home/docker/mnt/TeamSpace/TTD-Space/GPT_weights:/workspace/GPT_weights
-      - /home/docker/mnt/TeamSpace/TTD-Space/reference:/workspace/reference
+      - /home/docker/mnt/TeamSpace/TTD-Space/GPT_Sovits_v2/output:/workspace/output
+      - /home/docker/mnt/TeamSpace/TTD-Space/GPT_Sovits_v2/logs:/workspace/logs
+      - /home/docker/mnt/TeamSpace/TTD-Space/GPT_Sovits_v2/SoVITS_weights:/workspace/SoVITS_weights_v2
+      - /home/docker/mnt/TeamSpace/TTD-Space/GPT_Sovits_v2/GPT_weights:/workspace/GPT_weights_v2
+      - /home/docker/mnt/TeamSpace/TTD-Space/GPT_Sovits_v2/reference:/workspace/reference
       - /home/docker/mnt/TeamSpace:/workspace/TeamSpace
     working_dir: /workspace
     shm_size: 32G
