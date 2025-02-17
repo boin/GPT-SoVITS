@@ -58,8 +58,6 @@ language=sys.argv[-1] if sys.argv[-1] in scan_language_list() else "Auto"
 os.environ["language"]=language
 i18n = I18nAuto(language=language)
 from scipy.io import wavfile
-from tools.webconsole import get_docker_logs
-from gradio_log import Log
 from tools.my_utils import load_audio, check_for_existance, check_details
 from multiprocessing import cpu_count
 # os.environ['PYTORCH_ENABLE_MPS_FALLBACK'] = '1' # 当遇到mps不支持的步骤时使用cpu
