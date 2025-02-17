@@ -20,7 +20,6 @@ RUN locale-gen zh_CN.UTF-8
 WORKDIR /workspace
 COPY requirements.txt /workspace/
 RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install gradio_log
 
 # Define a build-time argument for image type
 ARG IMAGE_TYPE=full

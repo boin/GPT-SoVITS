@@ -763,7 +763,6 @@ else:
 def sync(text):
     return {'__type__':'update','value':text}
 with gr.Blocks(title="GPT-SoVITS WebUI") as app:
-    Log(get_docker_logs(), dark=True, xterm_font_size=12, render=bool(get_docker_logs()))
     with gr.Tabs():
         with gr.TabItem(i18n("0-前置数据集获取工具")):#提前随机切片防止uvr5爆内存->uvr5->slicer->asr->打标
             gr.Markdown(value=i18n("0a-UVR5人声伴奏分离&去混响去延迟工具"))
